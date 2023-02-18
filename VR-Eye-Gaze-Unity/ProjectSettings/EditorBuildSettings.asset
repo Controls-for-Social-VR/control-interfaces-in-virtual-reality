@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Human-VS-Human.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 899b6c6196a7fe44ea3130a5504c8f3b,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 61908a9fbce92d545b94897115093d0c,
+      type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 7e28f689fb3af72429e0be41be4818fa,
+      type: 2}
