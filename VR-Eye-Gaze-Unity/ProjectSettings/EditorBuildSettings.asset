@@ -9,6 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Human-VS-Human.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: ab54e041499ed4e46936837afad546d0,
+      type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 4a44794965aa2e14bac1e8934432de4d,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 899b6c6196a7fe44ea3130a5504c8f3b,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 61908a9fbce92d545b94897115093d0c,
