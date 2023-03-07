@@ -13,11 +13,18 @@ public class DisplayConnections : MonoBehaviour
     void Start()
     {
         textElement = GetComponent<TextMeshProUGUI>();
+        UpdateDeviceList();
+        InputSystem.onDeviceChange += (InputDevice device, InputDeviceChange change) => {
+            UpdateDeviceList();
+        };
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    void UpdateDeviceList() {
         textString = "";
         for (int i = 0; i < InputSystem.devices.Count; i++)
         {

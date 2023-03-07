@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 public class DetectController : MonoBehaviour
 {
@@ -14,14 +15,26 @@ public class DetectController : MonoBehaviour
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        playerInput.onActionTriggered += (CallbackContext ctx) =>
+        {
+            LogCurrentlyUsedDevice();
+            Debug.Log("ACTION PERFORMED IS: " + ctx.action.name);
+        };
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerInput.currentControlScheme == "Gamepad") {
+    }
+
+    void LogCurrentlyUsedDevice()
+    {
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
             currentControlName = Gamepad.current.name;
-        } else if (playerInput.currentControlScheme == "Keyboard&Mouse") {
+        }
+        else if (playerInput.currentControlScheme == "Keyboard&Mouse")
+        {
             currentControlName = Keyboard.current.name;
         }
         Debug.Log("CURRENT ACTIVE CONTROLLER IS: " + currentControlName);
