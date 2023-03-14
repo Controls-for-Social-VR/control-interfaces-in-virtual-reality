@@ -30,6 +30,9 @@ public class DisplayConnections : MonoBehaviour
         textString = "";
         for (int i = 0; i < InputSystem.devices.Count; i++)
         {
+            if (InputSystem.devices[i].name.Contains("VirtualMouse")) {
+                continue;
+            }
             textString += InputSystem.devices[i].name;
             textString += "\n";
         } 

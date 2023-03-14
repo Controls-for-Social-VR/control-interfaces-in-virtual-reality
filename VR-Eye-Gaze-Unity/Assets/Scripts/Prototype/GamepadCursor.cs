@@ -30,6 +30,12 @@ public class GamepadCursor : MonoBehaviour
     private bool prevMouseState;
     
     private void OnEnable() {
+        InputDevice[] devicesArr = InputSystem.devices.ToArray();
+        for (int i = 0; i < devicesArr.Length; i++){
+            if(devicesArr[i].name.Contains("VirtualMouse")) {
+                InputSystem.RemoveDevice(devicesArr[i]);
+            }
+        }
         if (virtualMouse == null) {
             virtualMouse = (Mouse) InputSystem.AddDevice("VirtualMouse");
         }

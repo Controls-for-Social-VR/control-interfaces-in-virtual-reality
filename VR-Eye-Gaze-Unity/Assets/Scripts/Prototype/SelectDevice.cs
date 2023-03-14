@@ -75,19 +75,27 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
 
     void UpdateDropdown()
     {
-        deviceNames = new string[InputSystem.devices.Count - 1];
-        for (int i = 0; i < InputSystem.devices.Count; i++)
+        deviceNames = new string[InputSystem.devices.Count - 2];
+        try {
+            for (int i = 0; i < InputSystem.devices.Count; i++)
         {
             if (InputSystem.devices[i].name == "Keyboard")
             {
                 deviceNames[i] = "Keyboard&Mouse";
                 i++;
+            } else if (InputSystem.devices[i].name.Contains("VirtualMouse")) {
+                i++;
+                continue;
             }
             else
             {
                 deviceNames[i - 1] = InputSystem.devices[i].name;
             }
         }
+        } catch {
+            Debug.Log("Check that we have a Keyboard, a Mouse, and a VirtualMouse");
+        }
+        
 
         PopulateDropdown(dropdown, deviceNames);
         dropdown.GetComponentInChildren<TMP_Text>().SetText(currentDevice);

@@ -11,7 +11,6 @@ public class DetectController : MonoBehaviour
     public PlayerInput playerInput;
 
     TextMeshProUGUI textElement;
-    string textString = "";
 
     void Awake() {
         //playerInput = GetComponent<PlayerInput>();
