@@ -19,9 +19,11 @@ public class DisplayConnections : MonoBehaviour
         };
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
+        InputSystem.onDeviceChange -= (InputDevice device, InputDeviceChange change) => {
+            UpdateDeviceList();
+        };
     }
 
     void UpdateDeviceList() {

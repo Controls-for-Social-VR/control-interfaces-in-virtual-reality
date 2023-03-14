@@ -10,6 +10,7 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
 {
     TMP_Dropdown dropdown;
     string currentDevice;
+    string previousDevice;
     string[] deviceNames;
 
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
     {
         dropdown = GetComponent<TMP_Dropdown>();
         currentDevice = "Keyboard&Mouse";
+        previousDevice = currentDevice;
         UpdateDropdown();
         InputSystem.onDeviceChange += (InputDevice device, InputDeviceChange change) =>
         {
@@ -27,11 +29,37 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
+        if(previousDevice != currentDevice) {
+            InputDevice[] devicesArr = InputSystem.devices.ToArray();
+        for(int i = 0; i < devicesArr.Length; i++) {
+            Debug.Log(devicesArr[i].name);
+            InputSystem.EnableDevice(devicesArr[i]);
+        }
+
+        for(int i = 0; i < devicesArr.Length; i++) {
+            // Remove all devices that are not currentDevice (check with index)
+            // Make sure you do not disable mouse or keyboard cause they are two separate devices
+            if(!currentDevice.Contains(devicesArr[i].name)) {
+                InputSystem.DisableDevice(devicesArr[i]);
+            }
+        }
+
+            previousDevice = currentDevice;
+        }
+    }
+
+    private void OnDisable () {
+        InputSystem.onDeviceChange -= (InputDevice device, InputDeviceChange change) =>
+        {
+            UpdateDropdown();
+        };
     }
 
     public void OnPointerClick(PointerEventData ped)
     {
-        UpdateDropdown();
+        if (!dropdown.Equals(null)) {
+            UpdateDropdown();
+        }
     }
 
     void PopulateDropdown(TMP_Dropdown dropdown, string[] optionsArray)
@@ -84,7 +112,8 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
     public void DeviceSelection(int index)
     {
         currentDevice = deviceNames[index];
-
+        
+        
         Debug.Log("Current device is: " + currentDevice);
     }
 }

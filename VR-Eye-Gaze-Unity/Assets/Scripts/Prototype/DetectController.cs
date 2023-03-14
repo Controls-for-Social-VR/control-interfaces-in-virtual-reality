@@ -8,35 +8,29 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class DetectController : MonoBehaviour
 {
-    PlayerInput playerInput;
-    string currentControlName = "";
+    public PlayerInput playerInput;
+
+    TextMeshProUGUI textElement;
+    string textString = "";
+
+    void Awake() {
+        //playerInput = GetComponent<PlayerInput>();
+        textElement = GetComponent<TextMeshProUGUI>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
         playerInput.onActionTriggered += (CallbackContext ctx) =>
         {
-            LogCurrentlyUsedDevice();
-            Debug.Log("ACTION PERFORMED IS: " + ctx.action.name);
+            textElement.text = ctx.action.name;
         };
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    void LogCurrentlyUsedDevice()
-    {
-        if (playerInput.currentControlScheme == "Gamepad")
+    private void OnDisable() {
+        playerInput.onActionTriggered -= (CallbackContext ctx) =>
         {
-            currentControlName = Gamepad.current.name;
-        }
-        else if (playerInput.currentControlScheme == "Keyboard&Mouse")
-        {
-            currentControlName = Keyboard.current.name;
-        }
-        Debug.Log("CURRENT ACTIVE CONTROLLER IS: " + currentControlName);
+            textElement.text = ctx.action.name;
+        };
     }
 }
