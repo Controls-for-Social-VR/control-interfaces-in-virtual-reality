@@ -28,8 +28,26 @@ public class GamepadCursor : MonoBehaviour
     private Canvas canvas;
 
     private bool prevMouseState;
+
+    void Start() {
+        InputSystem.onDeviceChange += TriggerCursor;
+    }
+
+    void TriggerCursor(InputDevice device, InputDeviceChange change) {
+        InputDevice[] devicesArr = InputSystem.devices.ToArray();
+
+        if (Gamepad.current.enabled) {
+                cursorTransform.gameObject.SetActive(true);
+                Vector2 initialState = new Vector2(0, 0);
+                AnchorCursor(initialState);
+                InputState.Change(virtualMouse.position, initialState);
+            } else {
+                cursorTransform.gameObject.SetActive(false);
+            }
+    }
     
     private void OnEnable() {
+
         InputDevice[] devicesArr = InputSystem.devices.ToArray();
         for (int i = 0; i < devicesArr.Length; i++){
             if(devicesArr[i].name.Contains("VirtualMouse")) {

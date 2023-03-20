@@ -13,13 +13,17 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
     string previousDevice;
     string[] deviceNames;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Awake() {
         dropdown = GetComponent<TMP_Dropdown>();
         currentDevice = "Keyboard&Mouse";
         previousDevice = currentDevice;
+        UpdateSelection();
         UpdateDropdown();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         InputSystem.onDeviceChange += (InputDevice device, InputDeviceChange change) =>
         {
             UpdateDropdown();
@@ -30,7 +34,12 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
     void Update()
     {
         if(previousDevice != currentDevice) {
-            InputDevice[] devicesArr = InputSystem.devices.ToArray();
+            UpdateSelection();
+        }
+    }
+
+    void UpdateSelection() {
+        InputDevice[] devicesArr = InputSystem.devices.ToArray();
         for(int i = 0; i < devicesArr.Length; i++) {
             Debug.Log(devicesArr[i].name);
             InputSystem.EnableDevice(devicesArr[i]);
@@ -44,8 +53,7 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
             }
         }
 
-            previousDevice = currentDevice;
-        }
+        previousDevice = currentDevice;
     }
 
     private void OnDisable () {
