@@ -12,35 +12,56 @@ public class ActionsList : MonoBehaviour
 
     [SerializeField]
     PlayerInput playerInput;
+
+    // Object instance of Input Action Asset: CHANGE IT TO THE NAME OF FINAL IAA. There should be an IAA for each player.
+    PrototypeActions actionsContainer;
+
+    void Awake() {
+        actionsContainer = new PrototypeActions();
+        textElement = GetComponent<TextMeshProUGUI>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        textElement = GetComponent<TextMeshProUGUI>();
         UpdateActionsList(playerInput);
         playerInput.onControlsChanged += UpdateActionsList;
         
     }
 
+    void OnEnable() {
+        actionsContainer.Enable();
+    }
+
     void OnDisable()
     {
+        actionsContainer.Disable();
         playerInput.onControlsChanged -= UpdateActionsList;
     }
 
     void UpdateActionsList(PlayerInput playerInput) {
+        Debug.Log("BINDINGS LIST REFRESHED");
+
+        for (int i = 0; i < actionsContainer.asset.actionMaps.Count; i++){
+            Debug.Log(actionsContainer.asset.actionMaps[i]);
+        }
         textString = "";
-        InputAction[] actions = playerInput.currentActionMap.actions.ToArray();
-        for (int i = 0; i < actions.Length; i++)
-        {
-            textString += actions[i].name;
+        for (int k = 0; k < actionsContainer.asset.actionMaps.Count; k++) {
+            textString += actionsContainer.asset.actionMaps[k].name;
             textString += "\n";
-            InputBinding[] bindings = actions[i].bindings.ToArray();
-            
-            for (int j = 0; j < bindings.Length; j++){
-                Debug.Log("BINDING: " + bindings[j].path);
-                textString += "  "+bindings[j].path;
+            InputAction[] actions = actionsContainer.asset.actionMaps[k].actions.ToArray();
+            for (int i = 0; i < actions.Length; i++)
+            {
+                textString += "    "+actions[i].name;
                 textString += "\n";
-            }
-        } 
+                InputBinding[] bindings = actions[i].bindings.ToArray();
+            
+                // for (int j = 0; j < bindings.Length; j++){
+                //     textString += "    "+bindings[j].path;
+                //     textString += "\n";
+                // }
+            } 
+        }
         textElement.text = textString;
     }
 }

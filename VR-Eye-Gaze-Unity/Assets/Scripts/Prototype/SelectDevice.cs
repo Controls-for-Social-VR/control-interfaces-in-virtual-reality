@@ -83,6 +83,9 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
 
     void UpdateDropdown()
     {
+        if (dropdown == null) {
+            return;
+        }
         deviceNames = new string[InputSystem.devices.Count - 2];
         try {
             for (int i = 0; i < InputSystem.devices.Count; i++)
