@@ -36,14 +36,29 @@ public class GamepadCursor : MonoBehaviour
     void TriggerCursor(InputDevice device, InputDeviceChange change) {
         InputDevice[] devicesArr = InputSystem.devices.ToArray();
 
-        if (Gamepad.current.enabled) {
-                cursorTransform.gameObject.SetActive(true);
-                Vector2 initialState = new Vector2(0, 0);
-                AnchorCursor(initialState);
-                InputState.Change(virtualMouse.position, initialState);
-            } else {
-                cursorTransform.gameObject.SetActive(false);
-            }
+        // if (Gamepad.current != null && Gamepad.current.enabled) {
+        //         Debug.Log("THERE IS A CONTROLLER");
+
+        //         cursorTransform.gameObject.SetActive(true);
+        //         Vector2 initialState = new Vector2(0, 0);
+        //         AnchorCursor(initialState);
+        //         InputState.Change(virtualMouse.position, initialState);
+        //     } else {
+        //         Debug.Log("There isn't a controller!!!!!!");
+        //         cursorTransform.gameObject.SetActive(false);
+        //     }
+
+        if(InputSystem.GetDevice("VirtualMouse").enabled){
+            Debug.Log("THERE IS A CONTROLLER");
+
+            cursorTransform.gameObject.SetActive(true);
+            Vector2 initialState = new Vector2(0, 0);
+            AnchorCursor(initialState);
+            InputState.Change(virtualMouse.position, initialState);
+        } else {
+            Debug.Log("There isn't a controller!!!!!!");
+            cursorTransform.gameObject.SetActive(false);
+        }
     }
     
     private void OnEnable() {

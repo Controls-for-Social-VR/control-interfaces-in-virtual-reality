@@ -28,6 +28,7 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
         {
             UpdateDropdown();
         };
+        
     }
 
     // Update is called once per frame
@@ -41,7 +42,6 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
     void UpdateSelection() {
         InputDevice[] devicesArr = InputSystem.devices.ToArray();
         for(int i = 0; i < devicesArr.Length; i++) {
-            Debug.Log(devicesArr[i].name);
             InputSystem.EnableDevice(devicesArr[i]);
         }
 
@@ -51,6 +51,13 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
             if(!currentDevice.Contains(devicesArr[i].name)) {
                 InputSystem.DisableDevice(devicesArr[i]);
             }
+        }
+
+        if(InputSystem.GetDevice(currentDevice) is Gamepad){
+            InputSystem.EnableDevice(InputSystem.GetDevice("VirtualMouse"));
+            Debug.Log("ENABLED VIRTUALMOUSE! " + InputSystem.GetDevice("VirtualMouse").enabled);
+        } else {
+            Debug.Log("Current Gamepad " + Gamepad.current.name);
         }
 
         previousDevice = currentDevice;
@@ -133,6 +140,6 @@ public class SelectDevice : MonoBehaviour, IPointerClickHandler
         currentDevice = deviceNames[index];
         
         
-        Debug.Log("Current device is: " + currentDevice);
+        //Debug.Log("Current device is: " + currentDevice);
     }
 }
