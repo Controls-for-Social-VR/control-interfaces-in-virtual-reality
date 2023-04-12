@@ -44,6 +44,12 @@ public class ActionItem : MonoBehaviour
 
     string[] currentConfigurationDevices;
 
+    [SerializeField]
+    GameObject bindingInfoPrefab;
+
+    [SerializeField]
+    Transform bindingInfoContainer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,7 +84,9 @@ public class ActionItem : MonoBehaviour
             newItem.GetComponentInChildren<TextMeshProUGUI>().text = configName;
             newItem.GetComponent<Button>().onClick.AddListener(delegate{SwitchConfig(actionGroupName, configName);});
             newItem.transform.SetParent(configContainer, false);
+            ReEnableAfterFrame(configContainer.gameObject);
         }
+        
 
         // Set action to Default configuration
         SwitchConfig(actionGroupName, "Default");
@@ -161,6 +169,39 @@ public class ActionItem : MonoBehaviour
             Debug.Log("IS " + actionsAsset.actionMaps[i].name + "ENABLED? " + actionsAsset.actionMaps[i].enabled);
         }
 
+        Canvas.ForceUpdateCanvases();
+
+        // Reset Binding Details Container
+        foreach (Transform child in bindingInfoContainer.transform) {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        // For each Action, provide Binding Details in this form ACTION: Gamepad/leftClick
+        // There should be one binding per action, and they should be instances of bindingInfoPrefab
+        // inserted in bindingInfoContainer
+        HashSet<string> actionsDisplayed = new HashSet<string>();
+        for (int i = 0; i < actionsAsset.actionMaps.Count; i++){
+            if(!actionsAsset.actionMaps[i].name.Equals(actionGroup+"-"+configName)){
+                continue;
+            }
+            for (int j = 0; j < actionsAsset.actionMaps[i].bindings.Count; j++){
+                string bindingInfo = actionsAsset.actionMaps[i].bindings[j].action.ToUpper();
+                if (actionsDisplayed.Contains(bindingInfo)) {
+                    continue;
+                }
+                actionsDisplayed.Add(bindingInfo);
+                bindingInfo+= ": ";
+                bindingInfo+= actionsAsset.actionMaps[i].bindings[j].path;
+
+                GameObject newItem = Instantiate(bindingInfoPrefab, new Vector3(0, 0, 0), new Quaternion(0, 0, 0 ,0));
+                newItem.GetComponentInChildren<TextMeshProUGUI>().text = bindingInfo;
+
+                newItem.transform.SetParent(bindingInfoContainer, false);
+                ReEnableAfterFrame(bindingInfoContainer.gameObject);
+            }
+            
+        }
+
         // Change buttons colour to reflect active configuration
         Image[] buttons = configContainer.GetComponentsInChildren<Image>();
             for (int i = 0; i < buttons.Length; i++){
@@ -181,6 +222,9 @@ public class ActionItem : MonoBehaviour
         if (currentConfigurationDevices == null){
             return;
         }
+        if (configDetailsContainer == null){
+            return;
+        }
 
         // Reset Configuration Details Container
                 foreach (Transform child in configDetailsContainer.transform) {
@@ -197,6 +241,8 @@ public class ActionItem : MonoBehaviour
                         string connectedDeviceName = "";
                         if (InputSystem.devices[f] is Gamepad){
                             connectedDeviceName = "Gamepad";
+                        } else if (InputSystem.devices[f].name.Contains("XR") && InputSystem.devices[f].name.Contains("Controller")) {
+                            connectedDeviceName = "XRController";
                         } else {
                             connectedDeviceName = InputSystem.devices[f].name;
                         }
@@ -208,7 +254,9 @@ public class ActionItem : MonoBehaviour
                     }
 
                     newItem.transform.SetParent(configDetailsContainer, false);
+                    ReEnableAfterFrame(configDetailsContainer.gameObject);
                 }
+        Canvas.ForceUpdateCanvases();
     }
 
     void OnDisable()
@@ -216,5 +264,20 @@ public class ActionItem : MonoBehaviour
         InputSystem.onDeviceChange -= (UnityEngine.InputSystem.InputDevice device, InputDeviceChange change) => {
             UpdateConnectedDevices(currentConfigurationDevices);
         };
+    }
+
+    //Reusable, just put a gameobject that's part of the layoutgroup and needs resetting visually
+    IEnumerator ReEnableAfterFrame(GameObject theObject)
+    {
+        VerticalLayoutGroup layoutGroup = theObject.GetComponent<VerticalLayoutGroup>();
+        yield return new WaitForEndOfFrame();
+
+        layoutGroup.enabled = false;
+
+        layoutGroup.CalculateLayoutInputVertical();
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(theObject.GetComponent<RectTransform>());
+
+        layoutGroup.enabled = true;
     }
 }
