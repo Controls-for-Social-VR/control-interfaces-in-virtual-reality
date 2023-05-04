@@ -65,6 +65,31 @@ public class ActionItem : MonoBehaviour
         extras.SetActive(false);
     }
 
+    void Update() {
+        resizeExtrasWindow();
+    }
+
+    void resizeExtrasWindow() {
+        if (isOpen){
+            LayoutRebuilder.MarkLayoutForRebuild((RectTransform)configDetailsContainer);
+            LayoutRebuilder.MarkLayoutForRebuild((RectTransform)setupContainer);
+            LayoutRebuilder.MarkLayoutForRebuild((RectTransform)configurationSelectors);  
+            float expandedHeightTemp = configDetailsContainer.GetComponent<RectTransform>().rect.height + setupContainer.rect.height + configurationSelectors.rect.height;
+            if (expandedHeightTemp < 100) {
+                expandedHeight = 150;
+            } else if (expandedHeightTemp < 200) {
+                expandedHeight = 250;
+            } else if (expandedHeightTemp < 300) {
+                expandedHeight = 350;
+            } else if (expandedHeightTemp < 350) {
+                expandedHeight = 400;
+            } else if (expandedHeightTemp < 450) {
+                expandedHeight = 500;
+            }
+            itemTransform.sizeDelta = new Vector2(itemTransform.rect.width, expandedHeight);
+        }
+    }
+
     public void FeedActionItem (string actionGroupName, InputActionAsset actionsAsset) {
         this.actionGroupName = actionGroupName;
         this.actionsAsset = actionsAsset;
@@ -99,8 +124,7 @@ public class ActionItem : MonoBehaviour
         } else {
             textElement.text = "Close";
             extras.SetActive(true);
-            expandedHeight = configDetailsContainer.GetComponent<RectTransform>().rect.height + setupContainer.rect.height + configurationSelectors.rect.height;
-            itemTransform.sizeDelta = new Vector2(itemTransform.rect.width, expandedHeight);
+            resizeExtrasWindow();
         }
 
         isOpen = !isOpen;
@@ -205,15 +229,7 @@ public class ActionItem : MonoBehaviour
             }
 
         // Update expandedHeight based on Extras height
-        Debug.Log("HEIGHT for configDetailsContainer" + configDetailsContainer.GetComponent<RectTransform>().rect.height);
-        Debug.Log("HEIGHT for setupContainer" + setupContainer.rect.height);
-        Debug.Log("HEIGHT for configurationSelectors" + configurationSelectors.rect.height);
-        expandedHeight = configDetailsContainer.GetComponent<RectTransform>().rect.height + setupContainer.rect.height + configurationSelectors.rect.height;
-        if (isOpen)
-        {
-            itemTransform.sizeDelta = new Vector2(itemTransform.rect.width, expandedHeight);
-            Debug.Log("After update" + itemTransform.rect.height);
-        }
+        resizeExtrasWindow();
         Canvas.ForceUpdateCanvases();
     }
 
