@@ -72,19 +72,19 @@ public class ActionItem : MonoBehaviour
     void resizeExtrasWindow() {
         if (isOpen){
             LayoutRebuilder.MarkLayoutForRebuild((RectTransform)configDetailsContainer);
-            LayoutRebuilder.MarkLayoutForRebuild((RectTransform)setupContainer);
-            LayoutRebuilder.MarkLayoutForRebuild((RectTransform)configurationSelectors);  
+            LayoutRebuilder.MarkLayoutForRebuild(setupContainer);
+            LayoutRebuilder.MarkLayoutForRebuild(configurationSelectors);  
             float expandedHeightTemp = configDetailsContainer.GetComponent<RectTransform>().rect.height + setupContainer.rect.height + configurationSelectors.rect.height;
             if (expandedHeightTemp < 100) {
-                expandedHeight = 150;
+                expandedHeight = 200;
             } else if (expandedHeightTemp < 200) {
-                expandedHeight = 250;
+                expandedHeight = 300;
             } else if (expandedHeightTemp < 300) {
-                expandedHeight = 350;
-            } else if (expandedHeightTemp < 350) {
                 expandedHeight = 400;
+            } else if (expandedHeightTemp < 350) {
+                expandedHeight = 450;
             } else if (expandedHeightTemp < 450) {
-                expandedHeight = 500;
+                expandedHeight = 550;
             }
             itemTransform.sizeDelta = new Vector2(itemTransform.rect.width, expandedHeight);
         }
@@ -268,10 +268,35 @@ public class ActionItem : MonoBehaviour
                         }
                     }
 
+                    var inputDevices = new List<UnityEngine.XR.InputDevice>();
+                    UnityEngine.XR.InputDevices.GetDevices(inputDevices);
+                    // Debug.Log(inputDevices.Count);
+                    Debug.Log("Device name:" + deviceName);
+
+                    foreach (var device in inputDevices)
+                    {
+                        string connectedDeviceName = "";
+                        // Debug.Log(string.Format("Device found with name '{0}' and role '{1}'", device.name, device.characteristics.ToString()));
+                        // Debug.Log("Is device running? " + device.subsystem.running);
+                        if (device.name.Contains("Controller")) {
+                            connectedDeviceName = "XRController";
+                        } else if (device.name.Contains("Head") || device.name.Contains("HMD"))
+                        {
+                            connectedDeviceName = "XRHMD";
+                        }
+
+                        if (connectedDeviceName.Equals(deviceName))
+                        {
+                            newItem.GetComponentsInChildren<TextMeshProUGUI>()[1].text = "Connected";
+                            newItem.GetComponentsInChildren<TextMeshProUGUI>()[1].color = Color.green;
+                        }
+                    }
+
                     newItem.transform.SetParent(configDetailsContainer, false);
                     ReEnableAfterFrame(configDetailsContainer.gameObject);
                 }
-        Canvas.ForceUpdateCanvases();
+
+                Canvas.ForceUpdateCanvases();
     }
 
     void OnDisable()

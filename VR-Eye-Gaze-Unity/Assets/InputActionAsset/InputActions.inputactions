@@ -1,8 +1,8 @@
 {
-    "name": "XRI Default Input Actions",
+    "name": "InputActions",
     "maps": [
         {
-            "name": "XRI Head",
+            "name": "Head-Default",
             "id": "09ff3ccc-21b4-4346-a3a2-7c978b5af892",
             "actions": [
                 {
@@ -50,7 +50,7 @@
             ]
         },
         {
-            "name": "XRI LeftHand",
+            "name": "LeftHand-Default",
             "id": "5fe596f9-1b7b-49b7-80a7-3b5195caf74d",
             "actions": [
                 {
@@ -204,7 +204,7 @@
             ]
         },
         {
-            "name": "XRI LeftHand Interaction",
+            "name": "LeftHand Interaction-Default",
             "id": "7a5e7537-cc30-4eb1-a544-6946baa8f3eb",
             "actions": [
                 {
@@ -278,6 +278,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "334e8ca8-de95-40d4-8fdf-cbfccb7ea533",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -368,11 +377,22 @@
                     "action": "Translate Anchor",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "edbaa259-8b89-4efd-adaf-e1aca8e90ddc",
+                    "path": "<XRController>{LeftHand}/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "XRI LeftHand Locomotion",
+            "name": "LeftHand Locomotion-Default",
             "id": "22336389-9fb1-4c2c-8635-0ed30db0d29e",
             "actions": [
                 {
@@ -540,7 +560,55 @@
             ]
         },
         {
-            "name": "XRI RightHand",
+            "name": "LeftHand Locomotion-Gamepad",
+            "id": "bb72a1ca-7013-4f63-b6cb-49dcfb33f2f3",
+            "actions": [
+                {
+                    "name": "Turn",
+                    "type": "Value",
+                    "id": "0271f912-c2a6-4883-9333-ba87a06c774e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "4b90ea16-5137-4411-8bdd-db6e3f7ebfea",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6f465838-2b2b-4976-ac3f-c125755d297c",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8c6540b-9270-4c20-846c-06bb0bdaad33",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "RightHand-Default",
             "id": "7960f8ef-2bf3-4281-aecc-4c03809d6c8c",
             "actions": [
                 {
@@ -694,7 +762,7 @@
             ]
         },
         {
-            "name": "XRI RightHand Interaction",
+            "name": "RightHand Interaction-Default",
             "id": "461bce25-7762-40c5-b639-f190649be6d6",
             "actions": [
                 {
@@ -862,7 +930,7 @@
             ]
         },
         {
-            "name": "XRI RightHand Locomotion",
+            "name": "RightHand Locomotion-Default",
             "id": "99ce76d3-82c5-4289-9670-2ecffa6833fd",
             "actions": [
                 {
@@ -1017,7 +1085,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",                
+                    "name": "",
                     "id": "31d838df-4d4e-4c16-a373-b9c07d9d2e2a",
                     "path": "<XRController>{RightHand}/Primary2DAxis",
                     "interactions": "Sector(directions=12,sweepBehavior=1),Sector(directions=2,sweepBehavior=2)",
@@ -1030,7 +1098,44 @@
             ]
         },
         {
-            "name": "XRI UI",
+            "name": "RightHand Locomotion-Gamepad",
+            "id": "6f0e6b6e-36e7-4ba7-8c3f-b27b9b1b4123",
+            "actions": [
+                {
+                    "name": "Turn",
+                    "type": "Value",
+                    "id": "76426ba2-dec5-48f7-ba69-c951333b4be5",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "5ac7de73-2846-4be2-bab0-e9cc7b63b399",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8671d2c1-d03e-46a7-8ce9-cc5ca33d57a2",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI-Default",
             "id": "edd65a7c-601c-4915-8307-025a081d8790",
             "actions": [
                 {
@@ -1550,6 +1655,22 @@
                 {
                     "devicePath": "<XRController>{RightHand}",
                     "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<VirtualMouse>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
