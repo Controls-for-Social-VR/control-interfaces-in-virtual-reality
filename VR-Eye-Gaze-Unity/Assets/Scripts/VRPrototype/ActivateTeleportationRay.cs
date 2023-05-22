@@ -14,7 +14,6 @@ public class ActivateTeleportationRay : MonoBehaviour
 
     public XRRayInteractor rightRay;
 
-    // Update is called once per frame
     void Update()
     {
         bool isRightRayHovering =  rightRay.TryGetHitInfo(out Vector3 leftPos, out Vector3 leftNormal, out int leftNumber, out bool leftValid);

@@ -15,7 +15,6 @@ public class InteractionCIM : MonoBehaviour
 
     public InputActionProperty interactionMode;
 
-    // Update is called once per frame
     void Update()
     {
         if (!interactionMode.action.actionMap.enabled)

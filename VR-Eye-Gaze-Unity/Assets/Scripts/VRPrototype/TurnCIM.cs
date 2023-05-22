@@ -17,29 +17,12 @@ public class TurnCIM : MonoBehaviour
     public Transform playerBody;
     public XROrigin XROrigin;
 
-    // Update is called once per frame
     void Update()
     {
         if (turnProvider.rightHandTurnAction.action.actionMap.name.Contains("Gamepad"))
         {
             turnProvider.enabled = false;
 
-            /*float valX = playerBody.rotation.x;
-            float valY = playerBody.rotation.y;
-
-
-            float rotationY = turnProvider.rightHandTurnAction.action.ReadValue<Vector2>().y * sensitivityX * Time.deltaTime;
-            float rotationX = turnProvider.rightHandTurnAction.action.ReadValue<Vector2>().x * sensitivityY * Time.deltaTime;
-
-            xRotation -= rotationY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-            yRotation += rotationX;
-*/
-            // XROrigin. = Quaternion.Euler(xRotation, yRotation, 0);
-            //XROrigin.RotateAroundCameraPosition(XROrigin.Camera.transform.right, )
-
-            //XROrigin.RotateAroundCameraUsingOriginUp(turnAmount);
             if (turnProvider.rightHandTurnAction.action.ReadValue<Vector2>() != Vector2.zero)
             {
                 var cardinal = CardinalUtility.GetNearestCardinal(turnProvider.rightHandTurnAction.action.ReadValue<Vector2>());

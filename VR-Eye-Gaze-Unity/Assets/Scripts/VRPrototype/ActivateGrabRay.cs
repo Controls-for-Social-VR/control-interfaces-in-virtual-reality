@@ -13,9 +13,6 @@ public class ActivateGrabRay : MonoBehaviour
     public XRDirectInteractor rightDirectGrab;
     public XRDirectInteractor unmovingDirectGrab;
 
-    // Start is called before the first frame update
-
-    // Update is called once per frame
     void Update()
     {
         leftGrabRay.SetActive(leftDirectGrab.interactablesSelected.Count == 0);

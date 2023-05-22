@@ -66,7 +66,6 @@ public class ActionItem : MonoBehaviour
 
     string activeConfig = "";
 
-    // Start is called before the first frame update
     void Start()
     {
         itemTransform = GetComponent<RectTransform>();
@@ -89,7 +88,6 @@ public class ActionItem : MonoBehaviour
         } else
         {
             selectButton.GetComponentInChildren<TextMeshProUGUI>().text = "Active";
-            // 4B4B4B
             selectButton.GetComponentInChildren<TextMeshProUGUI>().color = new Color(0,1,0,1);
             selectButton.GetComponent<Image>().color = new Color32(17, 41, 11, 255);
             selectButton.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -122,14 +120,10 @@ public class ActionItem : MonoBehaviour
             GameObject newItem = Instantiate(configPrefab, new Vector3(0, 0, 0), new Quaternion(0, 0, 0 ,0));
             string configName = configurationNames[i];
             newItem.GetComponentInChildren<TextMeshProUGUI>().text = configName;
-            // Create function that lets newItem display the config details, while selectButton should contain SwitchConfig
             newItem.GetComponent<Button>().onClick.AddListener(delegate{ShowConfig(actionGroupName, configName);});
             newItem.transform.SetParent(configContainer, false);
             ReEnableAfterFrame(configContainer.gameObject);
         }
-
-        // Set SwitchConfig FOR the selectButton with viewedConfig as the second parameter
-
 
         // Set action to Default configuration
         ShowConfig(actionGroupName, "Default");
@@ -149,6 +143,7 @@ public class ActionItem : MonoBehaviour
             extras.SetActive(true);
             extraSelect.SetActive(true);
             resizeExtrasWindow();
+            ShowConfig(actionGroupName, activeConfig);
         }
 
         isOpen = !isOpen;
@@ -273,7 +268,6 @@ public class ActionItem : MonoBehaviour
     }
 
     void SwitchConfig (string actionGroup, string configName) {
-        Debug.Log("SWITCHING CONFIGURATION FOR " + actionGroup + " TO " + configName);
         if (actionsAsset == null) {
             Debug.LogError("InputActionFile not Loaded in ActionItem.cs");
             return;
@@ -330,14 +324,10 @@ public class ActionItem : MonoBehaviour
 
                     var inputDevices = new List<UnityEngine.XR.InputDevice>();
                     UnityEngine.XR.InputDevices.GetDevices(inputDevices);
-                    // Debug.Log(inputDevices.Count);
-                    //Debug.Log("Device name:" + deviceName);
 
                     foreach (var device in inputDevices)
                     {
                         string connectedDeviceName = "";
-                        // Debug.Log(string.Format("Device found with name '{0}' and role '{1}'", device.name, device.characteristics.ToString()));
-                        // Debug.Log("Is device running? " + device.subsystem.running);
                         if (device.name.Contains("Controller")) {
                             connectedDeviceName = "XRController";
                         } else if (device.name.Contains("Head") || device.name.Contains("HMD"))
