@@ -47,6 +47,10 @@ public class GamepadCursor : MonoBehaviour
         //         Debug.Log("There isn't a controller!!!!!!");
         //         cursorTransform.gameObject.SetActive(false);
         //     }
+        if (!cursorTransform)
+        {
+            return;
+        }
 
         if(InputSystem.GetDevice("VirtualMouse").enabled){
             Debug.Log("THERE IS A CONTROLLER");
