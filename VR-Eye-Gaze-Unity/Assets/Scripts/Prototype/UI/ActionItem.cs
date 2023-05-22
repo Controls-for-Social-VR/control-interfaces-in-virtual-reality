@@ -271,7 +271,7 @@ public class ActionItem : MonoBehaviour
                     var inputDevices = new List<UnityEngine.XR.InputDevice>();
                     UnityEngine.XR.InputDevices.GetDevices(inputDevices);
                     // Debug.Log(inputDevices.Count);
-                    Debug.Log("Device name:" + deviceName);
+                    //Debug.Log("Device name:" + deviceName);
 
                     foreach (var device in inputDevices)
                     {

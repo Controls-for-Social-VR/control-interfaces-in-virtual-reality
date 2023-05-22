@@ -7,9 +7,11 @@ public class ActivateGrabRay : MonoBehaviour
 {
     public GameObject leftGrabRay;
     public GameObject rightGrabRay;
-    
+    public GameObject unmovingGrabRay;
+
     public XRDirectInteractor leftDirectGrab;
     public XRDirectInteractor rightDirectGrab;
+    public XRDirectInteractor unmovingDirectGrab;
 
     // Start is called before the first frame update
 
@@ -18,5 +20,6 @@ public class ActivateGrabRay : MonoBehaviour
     {
         leftGrabRay.SetActive(leftDirectGrab.interactablesSelected.Count == 0);
         rightGrabRay.SetActive(rightDirectGrab.interactablesSelected.Count == 0);
+        unmovingGrabRay.SetActive(unmovingDirectGrab.interactablesSelected.Count == 0);
     }
 }

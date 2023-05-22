@@ -10,6 +10,7 @@ public class EnableDisableVRMode : MonoBehaviour
     public Transform cameraOffset;
     public Camera camera;
     bool initialised = false;
+    bool needsReset = true;
     // Update is called once per frame
     void Update()
     {
@@ -18,17 +19,24 @@ public class EnableDisableVRMode : MonoBehaviour
             VRMode = setRefererenceToActiveAction(VRMode);
         }
 
-        if (VRMode.action.actionMap.name.Contains("Disabled"))
+        if (VRMode.action.actionMap.name.Contains("Disabled") && needsReset)
         {
             StopXR();
             cameraOffset.position = new Vector3(cameraOffset.position.x, 1.4f, cameraOffset.position.z);
             camera.fieldOfView = 60f;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            //camera.transform.rotation = new Quaternion(0, camera.transform.rotation.y, camera.transform.rotation.z, camera.transform.rotation.w);
             initialised = false;
-        } else if (!initialised)
+            needsReset = false;
+        } else if (!VRMode.action.actionMap.name.Contains("Disabled") && !initialised)
         {
             initialised = true;
+            cameraOffset.position = new Vector3(cameraOffset.position.x, 0f, cameraOffset.position.z);
+            transform.rotation = new Quaternion(0, 0, 0, 0);
             StopXR();
             StartCoroutine(StartXRCoroutine());
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            needsReset = true;
         }
     }
 

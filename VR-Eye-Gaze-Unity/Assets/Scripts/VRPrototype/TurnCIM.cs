@@ -9,11 +9,10 @@ public class TurnCIM : MonoBehaviour
 {
     public ActionBasedContinuousTurnProvider turnProvider;
     public ActionBasedContinuousTurnProviderCIM turnProviderCIM;
-    Vector3 Angles;
+
     float sensitivityX = 80f;
     float sensitivityY = 80f;
 
-    float xRotation = 0f;
     float yRotation = 0f;
     public Transform playerBody;
     public XROrigin XROrigin;

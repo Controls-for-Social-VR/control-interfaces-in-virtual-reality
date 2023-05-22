@@ -1897,8 +1897,30 @@
                 },
                 {
                     "name": "",
-                    "id": "64d099c4-75b5-4f31-a8ef-378b85972377",
-                    "path": "<Gamepad>/buttonWest",
+                    "id": "296fb3e0-8e52-485d-a151-6f970f639b90",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "UIPressValue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f4c6c7d-9df4-4dd1-b8a7-09ea68b1d7cb",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "UIPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13956837-3161-4dc5-bf88-df90c62b4778",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1908,12 +1930,12 @@
                 },
                 {
                     "name": "",
-                    "id": "93bdae05-7998-4e4b-964c-6867de516fdf",
+                    "id": "02edea86-0954-4b54-a021-db479431e985",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UIPress",
+                    "action": "Menu(Secondary)",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
