@@ -936,8 +936,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "edbaa259-8b89-4efd-adaf-e1aca8e90ddc",
-                    "path": "<XRController>{RightHand}/primaryButton",
+                    "id": "280365db-779d-4f3d-9b3c-af4fcd82a3b0",
+                    "path": "<XRController>{RightHand}/menuButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1123,8 +1123,8 @@
                 },
                 {
                     "name": "",
-                    "id": "8d1e65cb-adaf-4b99-88a5-7aafaf5d4bb8",
-                    "path": "<XRController>{LeftHand}/primaryButton",
+                    "id": "9d1097e3-e4d4-4090-8465-da856eebf3e0",
+                    "path": "<XRController>{LeftHand}/menuButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1305,7 +1305,7 @@
                 {
                     "name": "",
                     "id": "90a9279b-2a4f-4f40-b6c9-ce55922b1aa5",
-                    "path": "<XRController>{RightHand}/primaryButton",
+                    "path": "<XRController>{RightHand}/menuButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1398,6 +1398,17 @@
                     "processors": "ScaleVector2(y=0),StickDeadzone",
                     "groups": "Generic XR Controller",
                     "action": "Rotate Anchor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12fe5a1e-b9e9-47bc-99b5-c3d081eda83b",
+                    "path": "<XRController>{RightHand}/menuButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu(Secondary)",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1661,8 +1672,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ef1b08d5-3520-4d2d-891a-58706b7b280e",
-                    "path": "<XRController>{LeftHand}/primaryButton",
+                    "id": "ba2d281f-a4ab-4cfe-aaf0-dd8d1e614b4c",
+                    "path": "<XRController>{LeftHand}/menuButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
