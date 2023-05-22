@@ -50,6 +50,12 @@ public class ActionItem : MonoBehaviour
     [SerializeField]
     Transform bindingInfoContainer;
 
+    [SerializeField]
+    RectTransform setupContainer;
+
+    [SerializeField]
+    RectTransform configurationSelectors;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,13 +63,6 @@ public class ActionItem : MonoBehaviour
         currentHeight = itemTransform.rect.height;
         textElement = buttonTransform.GetComponentInChildren<TextMeshProUGUI>();
         extras.SetActive(false);
-        //Debug.Log("Current Height is: " + currentHeight);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void FeedActionItem (string actionGroupName, InputActionAsset actionsAsset) {
@@ -75,10 +74,8 @@ public class ActionItem : MonoBehaviour
 
         // Create list of Configuration Names
         configurationNames = getConfigurationNames(actionsAsset, actionGroupName);
-        // Instantiate One ConfigurationItem per Configuration Name
-        Debug.Log("ACTION GROUP IS " + actionGroupName);
+        // Instantiate One ConfigurationItem per Configuration Name. A Configuration is an Action Group with a Config name next to it (Player-Default)
         for(int i = 0; i < configurationNames.Length; i++){
-            Debug.Log("CONFIGURATION: " + configurationNames[i]);
             GameObject newItem = Instantiate(configPrefab, new Vector3(0, 0, 0), new Quaternion(0, 0, 0 ,0));
             string configName = configurationNames[i];
             newItem.GetComponentInChildren<TextMeshProUGUI>().text = configName;
@@ -92,27 +89,19 @@ public class ActionItem : MonoBehaviour
         SwitchConfig(actionGroupName, "Default");
 
         Canvas.ForceUpdateCanvases();
-        // Set the ConfigurationItem so that when clicked all the Configurations with the
-        // same root as the selected one (Player, UI, ...) are disabled, and the clicked 
-        // one is enabled.
     } 
 
     public void ExpandRetractItem () {
-        // Debug.Log("isOpen == " + isOpen);
-        // Debug.Log("Height is " + itemTransform.rect.height);
         if (isOpen) {
-            // Debug.Log("INSIDE isOpen TRUE");
             itemTransform.sizeDelta = new Vector2(itemTransform.rect.width, currentHeight);
             textElement.text = "Open";
             extras.SetActive(false);
         } else {
-            // Debug.Log("INSIDE isOpen FALSE");
-            itemTransform.sizeDelta = new Vector2(itemTransform.rect.width, expandedHeight);
             textElement.text = "Close";
             extras.SetActive(true);
+            expandedHeight = configDetailsContainer.GetComponent<RectTransform>().rect.height + setupContainer.rect.height + configurationSelectors.rect.height;
+            itemTransform.sizeDelta = new Vector2(itemTransform.rect.width, expandedHeight);
         }
-
-        // Debug.Log("Height after change is " + itemTransform.rect.height);
 
         isOpen = !isOpen;
     }
@@ -165,8 +154,6 @@ public class ActionItem : MonoBehaviour
             } else {
                 actionsAsset.actionMaps[i].Disable();
             }
-
-            Debug.Log("IS " + actionsAsset.actionMaps[i].name + "ENABLED? " + actionsAsset.actionMaps[i].enabled);
         }
 
         Canvas.ForceUpdateCanvases();
@@ -216,6 +203,18 @@ public class ActionItem : MonoBehaviour
                     buttons[i].color = new Color(0.14f, 0.14f, 0.14f, 1f);
                 }
             }
+
+        // Update expandedHeight based on Extras height
+        Debug.Log("HEIGHT for configDetailsContainer" + configDetailsContainer.GetComponent<RectTransform>().rect.height);
+        Debug.Log("HEIGHT for setupContainer" + setupContainer.rect.height);
+        Debug.Log("HEIGHT for configurationSelectors" + configurationSelectors.rect.height);
+        expandedHeight = configDetailsContainer.GetComponent<RectTransform>().rect.height + setupContainer.rect.height + configurationSelectors.rect.height;
+        if (isOpen)
+        {
+            itemTransform.sizeDelta = new Vector2(itemTransform.rect.width, expandedHeight);
+            Debug.Log("After update" + itemTransform.rect.height);
+        }
+        Canvas.ForceUpdateCanvases();
     }
 
     void UpdateConnectedDevices(string[] currentConfigurationDevices) {

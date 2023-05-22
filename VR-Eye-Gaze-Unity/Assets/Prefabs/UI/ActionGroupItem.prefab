@@ -458,7 +458,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3245912756890013950}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1202,7 +1202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -317.5, y: -231}
+  m_AnchoredPosition: {x: -317.5, y: 0}
   m_SizeDelta: {x: 635, y: 28}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7591583391993555573
@@ -1255,7 +1255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97375398172adde41bd7c597c4841ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expandedHeight: 350
+  expandedHeight: 400
   buttonTransform: {fileID: 5393235395496095335}
   extras: {fileID: 8842489940194042396}
   configPrefab: {fileID: 6147312688256729180, guid: 4d39731ffacb6594484cf42dcfc9417c,
@@ -1267,6 +1267,8 @@ MonoBehaviour:
   bindingInfoPrefab: {fileID: 2334401427580712501, guid: 183e74e5d1e7a144f83dec9357e7654d,
     type: 3}
   bindingInfoContainer: {fileID: 6920107978426222195}
+  setupContainer: {fileID: 48376887773537506}
+  configurationSelectors: {fileID: 5466084225502700035}
 --- !u!1 &8842489940194042396
 GameObject:
   m_ObjectHideFlags: 0
