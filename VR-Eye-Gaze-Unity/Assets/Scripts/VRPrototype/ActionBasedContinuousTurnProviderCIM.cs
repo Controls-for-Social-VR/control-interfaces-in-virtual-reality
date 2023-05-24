@@ -12,10 +12,8 @@ public class ActionBasedContinuousTurnProviderCIM : MonoBehaviour
     {
          if (!provider.rightHandTurnAction.action.actionMap.enabled)
         {
-            Debug.Log("Inside IF statement");
             InputActionProperty newProperty = setRefererenceToActiveAction(provider.rightHandTurnAction);
             provider.rightHandTurnAction = newProperty;
-            Debug.Log(provider.rightHandTurnAction.action.name);
         }
     }
 
@@ -31,7 +29,6 @@ public class ActionBasedContinuousTurnProviderCIM : MonoBehaviour
 
             if (asset.actionMaps[i].enabled)
             {
-                Debug.Log("THIS IS ACTIVE" + asset.actionMaps[i].name);
                 actionReference = new InputActionProperty(InputActionReference.Create(asset.actionMaps[i].FindAction(actionReference.action.name)));
                 return actionReference;
             }

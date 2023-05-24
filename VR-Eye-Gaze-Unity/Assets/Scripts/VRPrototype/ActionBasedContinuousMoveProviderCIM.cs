@@ -12,10 +12,8 @@ public class ActionBasedContinuousMoveProviderCIM : MonoBehaviour
     {
         if (!provider.leftHandMoveAction.action.actionMap.enabled)
         {
-            Debug.Log("Inside IF statement");
             InputActionProperty newProperty = setRefererenceToActiveAction(provider.leftHandMoveAction);
             provider.leftHandMoveAction= newProperty;
-            Debug.Log(provider.leftHandMoveAction.action.name);
         }
     }
 
@@ -35,7 +33,6 @@ public class ActionBasedContinuousMoveProviderCIM : MonoBehaviour
 
             if (asset.actionMaps[i].enabled)
             {
-                Debug.Log("THIS IS ACTIVE" + asset.actionMaps[i].name);
                 actionReference = new InputActionProperty(InputActionReference.Create(asset.actionMaps[i].FindAction(actionReference.action.name)));
                 return actionReference;
             }

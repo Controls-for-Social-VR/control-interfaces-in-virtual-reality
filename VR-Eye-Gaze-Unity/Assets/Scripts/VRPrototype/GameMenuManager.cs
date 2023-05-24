@@ -16,7 +16,6 @@ public class GameMenuManager : MonoBehaviour
     {
         if (!showButton.action.actionMap.enabled)
         {
-            Debug.Log("Changing Menu Button!!!");
             InputActionProperty newProperty = setRefererenceToActiveAction(showButton);
             showButton = newProperty;
         }
